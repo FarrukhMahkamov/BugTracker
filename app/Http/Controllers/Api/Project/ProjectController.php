@@ -47,12 +47,12 @@ class ProjectController extends Controller
             'project_owner' => $request->project_owner_id
         ]);
         
-        if ($request->users !== null) 
-            
+        if ($request->users !== null) {
             $users = collect($request->users);
                 
             $project->users()->attach($users);
-        
+        }
+            
         return new ProjectResource($project);
     }
     
