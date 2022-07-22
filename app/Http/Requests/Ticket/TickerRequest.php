@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Project;
+namespace App\Http\Requests\Ticket;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectRequest extends FormRequest
+class TickerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ProjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,8 +24,10 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => 'required|string|min:3|max:255|unique:projects,name,' . $this->id,
-            'project_owner_id' => 'required|exists:users,id'
+            'title' => 'required|min:3|max:255|string',
+            'description' => 'required|min:10|max:5000',
+            'user_id' => 'nullable',
+            'project_id' => 'nullable'
         ];
     }
 }

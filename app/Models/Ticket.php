@@ -14,4 +14,13 @@ class Ticket extends Model
         'description'
     ];
 
+    public function project()
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

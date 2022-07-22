@@ -19,14 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(ProjectController::class)
-->group(function () {
-    Route::get('projects', 'index');
-    Route::get('projects/{id}', 'show');
-    Route::get('projects/{id}/users', 'getProjectUsers');
-    Route::post('projects', 'store');
-    Route::put('projects/{id}', 'update');
-    Route::post('projects/add-user', 'attachUsertoProject');
-    Route::get('projects/{project_id}/deatach-user/{user_id}', 'detachUserFromProject');
-    Route::delete('projects/{id}', 'destroy');
+Route::prefix('v1')->group(function () {
+    Route::controller(ProjectController::class)
+    ->group(function () {
+        Route::get('projects', 'index');
+        Route::get('projects/{id}', 'show');
+        Route::get('projects/{id}/users', 'getProjectUsers');
+        Route::post('projects', 'store');
+        Route::put('projects/{id}', 'update');
+        Route::post('projects/add-user', 'attachUsertoProject');
+        Route::get('projects/{project_id}/deatach-user/{user_id}', 'detachUserFromProject');
+        Route::delete('projects/{id}', 'destroy');
+    });
 });

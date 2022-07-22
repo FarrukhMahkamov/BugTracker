@@ -21,6 +21,11 @@ class Project extends Model
 
     public function projectOwner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'project_owner');
+    }
+
+    public function ticket()
+    {
+        return $this->belongsToMany(Ticket::class);
     }
 }
