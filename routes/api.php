@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Project\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::controller(ProjectController::class)
+->group(function () {
+    Route::get('projects', 'index');
+    Route::get('projects/{id}', 'show');
+    Route::get('projects/{id}/users', 'getProjectUsers');
+    Route::post('projects', 'store');
+    Route::put('projects/{id}', 'update');
+    Route::post('projects/add-user', 'attachUsertoProject');
+    Route::get('projects/{project_id}/deatach-user/{user_id}', 'detachUserFromProject');
+    Route::delete('projects/{id}', 'destroy');
 });
