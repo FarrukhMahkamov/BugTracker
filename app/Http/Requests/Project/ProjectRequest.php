@@ -24,7 +24,8 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|min:3|max:255|unique' . $this->id,
+            'project_owner' => 'required|exists:users,id'
         ];
     }
 }
