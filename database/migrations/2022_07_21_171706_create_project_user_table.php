@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->boolean('is_manager')->default(false);
             $table->timestamps();
         });
     }

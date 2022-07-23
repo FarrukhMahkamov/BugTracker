@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Project\ProjectController;
+use App\Http\Controllers\Api\Ticket\TicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,14 @@ Route::prefix('v1')->group(function () {
         Route::post('projects/add-user', 'attachUsertoProject');
         Route::get('projects/{project_id}/deatach-user/{user_id}', 'detachUserFromProject');
         Route::delete('projects/{id}', 'destroy');
+    });
+
+    Route::controller(TicketController::class)
+    ->group(function () {
+        Route::get('tickets', 'index');
+        Route::get('tickets/{id}', 'show');
+        Route::post('tickets', 'store');
+        Route::put('tickets/{id}', 'update');
+        Route::delete('tickets/{id}', 'destroy');
     });
 });

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Ticket;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TickerRequest extends FormRequest
+class TicketRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class TickerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +24,9 @@ class TickerRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:3|max:255|string',
-            'description' => 'required|min:10|max:5000',
-            'user_id' => 'nullable',
-            'project_id' => 'nullable'
+            'ticket_title' => 'required|min:3|max:255|unique:tickets,title,' . $this->id,
+            'ticket_description' => 'required|min:5|max:5000',
+            'project_id' => 'required|exists:projects,id'
         ];
     }
 }

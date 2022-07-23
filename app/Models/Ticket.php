@@ -11,12 +11,13 @@ class Ticket extends Model
 
     protected $fillable = [
         'title',
-        'description'
+        'description',
+        'project_id'
     ];
 
     public function project()
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function user()

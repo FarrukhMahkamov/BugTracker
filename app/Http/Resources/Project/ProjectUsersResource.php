@@ -16,7 +16,8 @@ class ProjectUsersResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'joined_at' => date_format($this->project_user->created_at, 'Y:m:d H:m'),
         ];
     }
 }

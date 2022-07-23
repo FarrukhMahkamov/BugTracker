@@ -16,7 +16,10 @@ class Project extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)
+        ->withPivot(['is_manager'])
+        ->withTimestamps()
+        ->as('project_user');
     }
 
     public function projectOwner()
@@ -26,6 +29,6 @@ class Project extends Model
 
     public function ticket()
     {
-        return $this->belongsToMany(Ticket::class);
+        return $this->hasMany(Ticket::class);
     }
 }

@@ -47,6 +47,8 @@ class ProjectController extends Controller
             'project_owner' => $request->project_owner_id
         ]);
         
+        $project->users()->attach($project->project_owner, ['is_manager' => true]);
+
         if ($request->users !== null) {
             $users = collect($request->users);
                 
