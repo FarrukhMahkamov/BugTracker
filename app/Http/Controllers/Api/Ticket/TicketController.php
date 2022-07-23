@@ -36,7 +36,19 @@ class TicketController extends Controller
             'description' => $request->input('ticket_description'),
             'project_id' => $request->input('project_id') 
         ]);
+
+        if ($request->ticket_statuses !== null) {
+            $ticket_statuses = collect($request->ticket_statuses);
+
+            $ticket->ticketStatus()->attach($ticket_statuses);
+        }
         
+        if ($request->users !== null) {
+            $users = collect($request->users);
+
+            $ticket->users()->attach($users);
+        }
+
         return new TicketResource($ticket);
     }
     
@@ -59,11 +71,8 @@ class TicketController extends Controller
         
         $ticket->delete();
         
-        return response()->json([
-            "data" => [
-                "message" => "Deleted successfully"
-                ]
-            ], 204);
-        }
+        return response()->json([ 
+            'data' => 'Deleted Successfully'
+        ]);
     }
-    
+}

@@ -29,6 +29,6 @@ class Project extends Model
 
     public function ticket()
     {
-        return $this->hasMany(Ticket::class);
+    return $this->hasMany(Ticket::class);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Project\ProjectController;
 use App\Http\Controllers\Api\Ticket\TicketController;
+use App\Http\Controllers\Api\Ticket\TicketStatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,5 +41,13 @@ Route::prefix('v1')->group(function () {
         Route::post('tickets', 'store');
         Route::put('tickets/{id}', 'update');
         Route::delete('tickets/{id}', 'destroy');
+    });
+
+    Route::controller(TicketStatusController::class)
+    ->group(function () {
+        Route::get('ticket-statuses', 'index');
+        Route::post('ticket-statuses', 'store');
+        Route::put('ticket-statuses/{id}', 'update');
+        Route::delete('ticket-statuses/{id}', 'destroy');
     });
 });
