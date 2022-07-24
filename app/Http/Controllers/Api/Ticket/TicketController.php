@@ -38,20 +38,20 @@ class TicketController extends Controller
         ]);
         
         if ($request->ticket_statuses !== null) {
-            foreach ($request->ticket_statuses as $ticketStatus) {
-                $ticket->ticketStatus()->attach($ticketStatus);
+            foreach ($request->ticket_statuses as $ticket_status) {
+                $ticket->ticketStatus()->attach($ticket_status);
             }
         }
         
         if ($request->ticket_users !== null) {
-            foreach ($request->ticket_users as $user) {
-                $ticket->users()->attach($user);
+            foreach ($request->ticket_users as $ticket_user) {
+                $ticket->users()->attach($ticket_user);
             }
         }
 
         if ($request->ticket_tags !== null) {
-            foreach ($request->ticket_users as $ticket_users) {
-                $ticket->ticketTags()->attach($ticket_users);
+            foreach ($request->ticket_tags as $ticket_tag) {
+                $ticket->ticketTags()->attach($ticket_tag);
             }
         }
         
