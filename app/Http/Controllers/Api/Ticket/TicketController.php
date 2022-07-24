@@ -38,15 +38,22 @@ class TicketController extends Controller
         ]);
 
         if ($request->ticket_statuses !== null) {
-            $ticket_statuses = collect($request->ticket_statuses);
 
-            $ticket->ticketStatus()->attach($ticket_statuses);
+            $ticketStatuses = $request->ticket_statuses;
+
+            foreach ($ticketStatuses as $ticketStatus) {
+                $ticket->ticketStatus()->attach($ticketStatus["id"]);
+            }
+          
         }
         
         if ($request->users !== null) {
-            $users = collect($request->users);
+            $users = $request->ticket_users;
 
-            $ticket->users()->attach($users);
+            foreach ($users as $user) {
+                $ticket->users()->attach($user['id']);
+            }
+
         }
 
         return new TicketResource($ticket);
@@ -61,6 +68,28 @@ class TicketController extends Controller
             'description' => $request->input('ticket_description'),
             'project_id' => $request->input('project_id') 
         ]);
+
+        if ($request->ticket_statuses !== null) {
+
+            $ticketStatuses = $request->ticket_statuses;
+            $ticket->ticketStatus()->detach();
+
+            foreach ($ticketStatuses as $ticketStatus) { 
+                $ticket->ticketStatus()->attach($ticketStatus["id"]);
+            }
+          
+        }
+        
+        if ($request->ticket_users !== null) {
+            
+            $users = $request->ticket_users;
+            $ticket->users()->detach();
+
+            foreach ($users as $user) {
+                $ticket->users()->attach($user['id']);
+            }
+
+        }
         
         return new TicketResource($ticket);
     }
