@@ -30,4 +30,9 @@ class Ticket extends Model
     {
         return $this->belongsToMany(TicketStatus::class);
     }
+
+    public function ticketTag()
+    {
+        return $this->belongsToMany(TicketTag::class);
+    }
 }

@@ -13,4 +13,9 @@ class TicketTag extends Model
         "name",
         "color"
     ];
+
+    public function ticket()
+    {
+        return $this->belongsToMany(TicketTag::class);
+    }
 }

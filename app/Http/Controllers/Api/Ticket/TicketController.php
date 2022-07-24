@@ -36,26 +36,25 @@ class TicketController extends Controller
             'description' => $request->input('ticket_description'),
             'project_id' => $request->input('project_id') 
         ]);
-
+        
         if ($request->ticket_statuses !== null) {
-
-            $ticketStatuses = $request->ticket_statuses;
-
-            foreach ($ticketStatuses as $ticketStatus) {
-                $ticket->ticketStatus()->attach($ticketStatus["id"]);
+            foreach ($request->ticket_statuses as $ticketStatus) {
+                $ticket->ticketStatus()->attach($ticketStatus);
             }
-          
         }
         
-        if ($request->users !== null) {
-            $users = $request->ticket_users;
-
-            foreach ($users as $user) {
-                $ticket->users()->attach($user['id']);
+        if ($request->ticket_users !== null) {
+            foreach ($request->ticket_users as $user) {
+                $ticket->users()->attach($user);
             }
-
         }
- 
+
+        if ($request->ticket_tags !== null) {
+            foreach ($request->ticket_users as $ticket_users) {
+                $ticket->ticketTags()->attach($ticket_users);
+            }
+        }
+        
         return new TicketResource($ticket);
     }
     
@@ -84,54 +83,96 @@ class TicketController extends Controller
     }
     
     /**
-     * Ticketga yangi hodimi biriktirish. 
-     *  "uesrs" : [1, 2, 3, 4]
-     */
+    * Ticketga yangi hodimi biriktirish. 
+    *  "uesrs" : [1, 2, 3, 4]
+    */
     public function attachUsersToTicket(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);
-
+        
         foreach ($request->ticket_users as $user) {
             $ticket->users()->attach($user);
         }
+        
+        return response()->json([
+            "data" => "Attached Successfully"
+        ]);
     }
-
+    
     /**
-     * Ticketdan hodimni chiqarib tashlash.  
-     * "uesrs" : [1, 2, 3, 4]
-     */
+    * Ticketdan hodimni chiqarib tashlash.  
+    * "uesrs" : [1, 2, 3, 4]
+    */
     public function detachUserFromTicket(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);
-
+        
         foreach ($request->ticket_users as $user) {
             $ticket->users()->detach($user);
         }
+        
+        return response()->json([
+            "data" => "Detached Successfully"
+        ]);
     }
-
+    
     /**
-     *  Ticketga yangi status biriktirish.
-     * "ticket_statuses" : [1, 2, 3, 4, 5]
-     */
+    *  Ticketga yangi status biriktirish.
+    * "ticket_statuses" : [1, 2, 3, 4, 5]
+    */
     public function attachStatusToTicket(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);
-
+        
         foreach ($request->ticket_statuses as $ticket_status) {
             $ticket->ticketStatus()->attach($ticket_status);
         }
+        
+        return response()->json([
+            "data" => "Attached Successfully"
+        ]);
     }
-
+    
     /**
-     *  Ticketdan ticket statusni olib tashlash.
-     * "ticket_statuses" : [1, 2, 3, 4, 5]
-     */
+    *  Ticketdan ticket statusni olib tashlash.
+    * "ticket_statuses" : [1, 2, 3, 4, 5]
+    */
     public function detachTicketStatusFromTicket(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);
-
+        
         foreach ($request->ticket_statuses as $ticket_status) {
             $ticket->ticketStatus()->detach($ticket_status);
+        }
+        
+        return response()->json([
+            "data" => "Detached Successfully"
+        ]);
+    }
+    
+    /**
+    * Ticketga yangi tag(lar) qo'shsih
+    * "ticket_tags" : [1, 3, 5]
+    */
+    public function attachTagToTicket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        
+        foreach ($request->ticket_tags as $tags) {
+            $ticket->ticketTag()->attach($tags);
+        }
+    }
+    
+    /**
+    * Ticketdan taglarni o'chirish.
+    * "ticket_tags" : [1, 3, 5]
+    */
+    public function detachTicketTagFromTicket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        
+        foreach ($request->ticket_tags as $tags) {
+            $ticket->ticketTag()->detach($tags);
         }
     }
     
