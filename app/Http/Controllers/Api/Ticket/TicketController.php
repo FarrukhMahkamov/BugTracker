@@ -14,7 +14,7 @@ use App\Http\Resources\Ticket\TicketResource;
 * Ticketlar uchun API
 */
 class TicketController extends Controller
-{
+{   
     public function index()
     {
         $tickets = Ticket::latest()->get();
@@ -55,7 +55,7 @@ class TicketController extends Controller
             }
 
         }
-
+ 
         return new TicketResource($ticket);
     }
     
@@ -68,28 +68,6 @@ class TicketController extends Controller
             'description' => $request->input('ticket_description'),
             'project_id' => $request->input('project_id') 
         ]);
-
-        if ($request->ticket_statuses !== null) {
-
-            $ticketStatuses = $request->ticket_statuses;
-            $ticket->ticketStatus()->detach();
-
-            foreach ($ticketStatuses as $ticketStatus) { 
-                $ticket->ticketStatus()->attach($ticketStatus["id"]);
-            }
-          
-        }
-        
-        if ($request->ticket_users !== null) {
-            
-            $users = $request->ticket_users;
-            $ticket->users()->detach();
-
-            foreach ($users as $user) {
-                $ticket->users()->attach($user['id']);
-            }
-
-        }
         
         return new TicketResource($ticket);
     }
@@ -104,4 +82,57 @@ class TicketController extends Controller
             'data' => 'Deleted Successfully'
         ]);
     }
+    
+    /**
+     * Ticketga yangi hodimi biriktirish. 
+     *  "uesrs" : [1, 2, 3, 4]
+     */
+    public function attachUsersToTicket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        foreach ($request->ticket_users as $user) {
+            $ticket->users()->attach($user);
+        }
+    }
+
+    /**
+     * Ticketdan hodimni chiqarib tashlash.  
+     * "uesrs" : [1, 2, 3, 4]
+     */
+    public function detachUserFromTicket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        foreach ($request->ticket_users as $user) {
+            $ticket->users()->detach($user);
+        }
+    }
+
+    /**
+     *  Ticketga yangi status biriktirish.
+     * "ticket_statuses" : [1, 2, 3, 4, 5]
+     */
+    public function attachStatusToTicket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        foreach ($request->ticket_statuses as $ticket_status) {
+            $ticket->ticketStatus()->attach($ticket_status);
+        }
+    }
+
+    /**
+     *  Ticketdan ticket statusni olib tashlash.
+     * "ticket_statuses" : [1, 2, 3, 4, 5]
+     */
+    public function detachTicketStatusFromTicket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        foreach ($request->ticket_statuses as $ticket_status) {
+            $ticket->ticketStatus()->detach($ticket_status);
+        }
+    }
+    
 }

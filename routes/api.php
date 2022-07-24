@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Project\ProjectController;
 use App\Http\Controllers\Api\Ticket\TicketController;
 use App\Http\Controllers\Api\Ticket\TicketStatusController;
+use App\Http\Controllers\Api\Ticket\TicketTagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,10 @@ Route::prefix('v1')->group(function () {
         Route::get('tickets/{id}', 'show');
         Route::post('tickets', 'store');
         Route::put('tickets/{id}', 'update');
+        Route::post('tickets/{id}/attach-users', 'attachUsersToTicket');
+        Route::post('tickets/{id}/detach-users', 'detachUserFromTicket');
+        Route::post('tickets/{id}/attach-ticket-statuses', 'attachStatusToTicket');
+        Route::post('tickets/{id}/detach-ticket-statuses', 'detachTicketStatusFromTicket');
         Route::delete('tickets/{id}', 'destroy');
     });
 
@@ -49,5 +54,13 @@ Route::prefix('v1')->group(function () {
         Route::post('ticket-statuses', 'store');
         Route::put('ticket-statuses/{id}', 'update');
         Route::delete('ticket-statuses/{id}', 'destroy');
+    });
+
+    Route::controller(TicketTagController::class)
+    ->group(function () {
+        Route::get('ticket-tags', 'index');
+        Route::post('ticket-tags', 'store');
+        Route::put('ticket-tags/{id}', 'update');
+        Route::delete('ticket-tags/{id}', 'destroy');
     });
 });

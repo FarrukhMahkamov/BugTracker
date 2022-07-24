@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TicketTag extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "color"
+    ];
 }
