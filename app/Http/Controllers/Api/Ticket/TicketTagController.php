@@ -9,7 +9,7 @@ use App\Models\TicketTag;
 use Illuminate\Http\Request;
 
 /**
- * @group TAGLAR
+ * @group TICKET TAGS
  * 
  * Taglar uchun api
  */

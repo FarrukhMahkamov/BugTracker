@@ -10,7 +10,7 @@ use App\Models\TicketStatus;
 use Illuminate\Http\Request;
 
 /**
- * TICKET STATUS COLORS
+ * @group TICKET STATUSES
  * 
  * Ticket status ranglari uchun API
  */

@@ -47,6 +47,8 @@ Route::prefix('v1')->group(function () {
         Route::post('tickets/{id}/detach-ticket-statuses', 'detachTicketStatusFromTicket');
         Route::post('tickets/{id}/attach-ticket-tags', 'attachTagToTicket');
         Route::post('tickets/{id}/detach-ticket-tags', 'detachTicketTagFromTicket');
+        Route::put('tickets/{id}/complete', 'completeTask');
+        Route::put('tickets/{id}/uncomplete', 'uncompleteTask');
         Route::delete('tickets/{id}', 'destroy');
     });
 

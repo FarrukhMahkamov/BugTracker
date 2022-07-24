@@ -6,10 +6,11 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\TicketRequest;
+use App\Http\Resources\Ticket\MiniTicketResource;
 use App\Http\Resources\Ticket\TicketResource;
 
 /**
-* TICKETLAR
+* @group TICKETLAR
 * 
 * Ticketlar uchun API
 */
@@ -19,7 +20,7 @@ class TicketController extends Controller
     {
         $tickets = Ticket::latest()->get();
         
-        return TicketResource::collection($tickets);
+        return MiniTicketResource::collection($tickets);
     }
     
     public function show($id)
@@ -184,4 +185,27 @@ class TicketController extends Controller
         ]);
     }
     
+    /**
+     * Ticketni bajarliganligini tasdiqlash
+     */
+    public function completeTask($id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->update([
+            'is_compeleted' => true
+        ]);
+    }
+
+    /**
+     * Ticketni bajarilganligini bekor qilish
+     */
+    public function uncompleteTask($id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->update([
+            'is_compeleted' => false
+        ]);
+    }
 }

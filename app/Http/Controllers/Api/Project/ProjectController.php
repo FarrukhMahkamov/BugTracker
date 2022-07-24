@@ -11,7 +11,7 @@ use App\Http\Resources\Project\ProjectResource;
 use App\Http\Resources\Project\ProjectUsersResource;
 
 /**
-* @group Loyihalar
+* @group LOYIHALAR
 * 
 * Loyihalar uchun API
 */
