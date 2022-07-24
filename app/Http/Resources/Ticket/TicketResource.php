@@ -21,7 +21,8 @@ class TicketResource extends JsonResource
             'project_id' => $this->project_id,
             'project_name' => $this->project->name,
             'ticket_statuses' => TicketStatusResource::collection($this->ticketStatus),
-            'ticket_users' => TicketUsersResource::collection($this->users)
+            'ticket_users' => TicketUsersResource::collection($this->ticketUser),
+            'ticket_tags' => TicketTagResource::collection($this->ticketTag)
         ];
     }
 }

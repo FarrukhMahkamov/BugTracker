@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_tag', function (Blueprint $table) {
+        Schema::create('ticket_ticket_tag', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ticket_id')->constrained();
-            $table->foreignId('tag_id')->constrained();
+            $table->foreignId('ticket_tag_id')->constrained();
             $table->timestamps();
         });
     }
-
+    
+   
     /**
      * Reverse the migrations.
      *
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_tags');
+        Schema::dropIfExists('ticket_ticket_tag');
     }
 };

@@ -45,13 +45,13 @@ class TicketController extends Controller
         
         if ($request->ticket_users !== null) {
             foreach ($request->ticket_users as $ticket_user) {
-                $ticket->users()->attach($ticket_user);
+                $ticket->ticketUser()->attach($ticket_user);
             }
         }
 
         if ($request->ticket_tags !== null) {
             foreach ($request->ticket_tags as $ticket_tag) {
-                $ticket->ticketTags()->attach($ticket_tag);
+                $ticket->ticketTag()->attach($ticket_tag);
             }
         }
         
@@ -91,7 +91,7 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
         
         foreach ($request->ticket_users as $user) {
-            $ticket->users()->attach($user);
+            $ticket->ticketUser()->attach($user);
         }
         
         return response()->json([
@@ -108,7 +108,7 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
         
         foreach ($request->ticket_users as $user) {
-            $ticket->users()->detach($user);
+            $ticket->ticketUser()->detach($user);
         }
         
         return response()->json([
@@ -161,6 +161,10 @@ class TicketController extends Controller
         foreach ($request->ticket_tags as $tags) {
             $ticket->ticketTag()->attach($tags);
         }
+
+        return response()->json([
+            "data" => "Attached Successfully"
+        ]);
     }
     
     /**
@@ -174,6 +178,10 @@ class TicketController extends Controller
         foreach ($request->ticket_tags as $tags) {
             $ticket->ticketTag()->detach($tags);
         }
+           
+        return response()->json([
+            "data" => "Detached Successfully"
+        ]);
     }
     
 }

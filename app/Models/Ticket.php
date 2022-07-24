@@ -21,7 +21,7 @@ class Ticket extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function users()
+    public function ticketUser()
     {
         return $this->belongsToMany(User::class);
     }
