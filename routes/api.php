@@ -1,11 +1,17 @@
 <?php
 
-use App\Http\Controllers\Api\Project\ProjectController;
-use App\Http\Controllers\Api\Ticket\TicketController;
-use App\Http\Controllers\Api\Ticket\TicketStatusController;
-use App\Http\Controllers\Api\Ticket\TicketTagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
+use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Ticket\TicketController;
+use App\Http\Controllers\Api\Project\ProjectController;
+use App\Http\Controllers\Api\Auth\GitHubLoginController;
+use App\Http\Controllers\Api\Auth\GoogleLoginController;
+use App\Http\Controllers\Api\Ticket\TicketTagController;
+use App\Http\Controllers\Api\Auth\FacebookLoginController;
+use App\Http\Controllers\Api\Ticket\TicketStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +28,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
+
 Route::prefix('v1')->group(function () {
+
+    Route::post('register', [RegisterController::class, 'register']);
+    Route::post('login', [LoginController::class, 'login']);
+    Route::middleware('auth:sanctum')->post('logout', [LogoutController::class, 'logout']);
+
+    Route::controller(GoogleLoginController::class)
+    ->group(function () {
+        Route::get('login/google', 'redirectToGoogle');
+        Route::get('login/google/callback', 'handleGoogleCallback');
+    });
+
+    Route::controller(GitHubLoginController::class)
+    ->group(function () {
+        Route::get('login/github', 'redirectToGitHub');
+        Route::get('login/github/callback', 'handleGitHubCallback');
+    });
+
+    Route::controller(FacebookLoginController::class)
+    ->group(function () {
+        Route::get('login/facebook', 'redirectToFacebook');
+        Route::get('login/facebook/callback', 'handleFacebookCallback');
+    });
+
     Route::controller(ProjectController::class)
     ->group(function () {
         Route::get('projects', 'index');
