@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Auth\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -27,6 +28,7 @@ class LoginController extends Controller
         }
 
         $user->token = $user->createToken($request->email)->plainTextToken;
+
 
         return new UserResource($user);
     }

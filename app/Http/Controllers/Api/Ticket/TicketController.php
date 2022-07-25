@@ -193,29 +193,40 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
 
-        $ticket->update([
-            'is_compeleted' => true,
-        ]);
+        if (! $ticket->ticketUser->contains(auth()->id())) {
+            return response()->json([
+                "data" => "It is not your ticket bruh. Dont touch it!"
+            ], 401);
+        } else {
+            $ticket->update([
+                'is_compeleted' => 1,
+            ]);
+
+            return response()->json([
+                "data" => "Status change successfully"
+            ]);
+        }
     }
 
     /**
      * Ticketni bajarilganligini bekor qilish
      */
     public function uncompleteTask($id)
-    {
+    {  
         $ticket = Ticket::findOrFail($id);
 
-        $ticketUsers = $ticket->ticketUser;
-
-        return $ticketUsers;
-
-        if (! $ticket->ticketUser->cotntains(Auth::user())) {
+        if (! $ticket->ticketUser->contains(auth()->id())) {
             return response()->json([
-                'You are not owner of the comment',
+                "data" => "It is not your ticket bruh. Dont touch it!"
+            ]);
+        } else {
+            $ticket->update([
+                'is_compeleted' => 0,
+            ]);
+
+            return response()->json([
+                "data" => "Status change successfully"
             ]);
         }
-        // $ticket->update([
-        //     'is_compeleted' => false
-        // ]);
     }
 }
