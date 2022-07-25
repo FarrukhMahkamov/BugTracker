@@ -10,8 +10,8 @@ class TicketTag extends Model
     use HasFactory;
 
     protected $fillable = [
-        "name",
-        "color"
+        'name',
+        'color',
     ];
 
     public function ticket()

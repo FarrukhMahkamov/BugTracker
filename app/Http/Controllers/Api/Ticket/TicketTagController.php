@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\TicketTagRequest;
 use App\Http\Resources\Ticket\TicketTagResource;
 use App\Models\TicketTag;
-use Illuminate\Http\Request;
 
 /**
  * @group TICKET TAGS
- * 
+ *
  * Taglar uchun api
  */
 class TicketTagController extends Controller
-{   
+{
     /**
      * Barcha taglar ro'yhati
      */
@@ -31,8 +30,8 @@ class TicketTagController extends Controller
     public function store(TicketTagRequest $request)
     {
         $ticketTag = TicketTag::create([
-            "name" => $request->input('ticket_tag_name'),
-            "color" => $request->input('ticket_tag_color')
+            'name' => $request->input('ticket_tag_name'),
+            'color' => $request->input('ticket_tag_color'),
         ]);
 
         return new TicketTagResource($ticketTag);
@@ -46,8 +45,8 @@ class TicketTagController extends Controller
         $ticketTag = TicketTag::findOrFail($id);
 
         $ticketTag->update([
-            "name" => $request->input('ticket_tag_name'),
-            "color" => $request->input('ticket_tag_color')
+            'name' => $request->input('ticket_tag_name'),
+            'color' => $request->input('ticket_tag_color'),
         ]);
 
         return new TicketTagResource($ticketTag);
@@ -63,7 +62,7 @@ class TicketTagController extends Controller
         $ticketTag->delete();
 
         return response()->json([
-            "data" => "Deleted Successfully"
+            'data' => 'Deleted Successfully',
         ]);
     }
 }

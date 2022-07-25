@@ -11,7 +11,7 @@ class Project extends Model
 
     protected $fillable = [
         'name',
-        'project_owner'
+        'project_owner',
     ];
 
     public function users()
@@ -29,6 +29,6 @@ class Project extends Model
 
     public function ticket()
     {
-    return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class);
     }
 }

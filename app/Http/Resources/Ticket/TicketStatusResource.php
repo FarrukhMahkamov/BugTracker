@@ -15,9 +15,9 @@ class TicketStatusResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "ticket_status_name" => $this->name,
-            "ticket_status_color" => $this->color
+            'id' => $this->id,
+            'ticket_status_name' => $this->name,
+            'ticket_status_color' => $this->color,
         ];
     }
 }

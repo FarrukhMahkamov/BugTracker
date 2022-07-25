@@ -24,9 +24,9 @@ class TicketRequest extends FormRequest
     public function rules()
     {
         return [
-            'ticket_title' => 'required|min:3|max:255|unique:tickets,title,' . $this->id,
+            'ticket_title' => 'required|min:3|max:255|unique:tickets,title,'.$this->id,
             'ticket_description' => 'required|min:5|max:5000',
-            'project_id' => 'required|exists:projects,id'
+            'project_id' => 'required|exists:projects,id',
         ];
     }
 }

@@ -31,7 +31,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'google_id'
+        'google_id',
     ];
 
     /**
@@ -43,18 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function ownProject()
     {
         return $this->hasMany(Project::class);
     }
-    
+
     public function projects()
     {
         return $this->belongsToMany(Project::class);
     }
-
- 
 
     public function ticket()
     {

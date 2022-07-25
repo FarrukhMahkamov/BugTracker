@@ -15,9 +15,9 @@ class TicketTagResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "ticket_tag_name" => $this->name,
-            "ticket_tag_color" => $this->color
+            'id' => $this->id,
+            'ticket_tag_name' => $this->name,
+            'ticket_tag_color' => $this->color,
         ];
     }
 }

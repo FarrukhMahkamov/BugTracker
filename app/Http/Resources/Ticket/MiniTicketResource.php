@@ -18,7 +18,7 @@ class MiniTicketResource extends JsonResource
             'id' => $this->id,
             'ticket_title' => $this->title,
             'ticket_description' => $this->description,
-            'is_completed' => $this->is_compeleted  
+            'is_completed' => $this->is_compeleted,
         ];
     }
 }

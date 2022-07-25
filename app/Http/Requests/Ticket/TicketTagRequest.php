@@ -24,8 +24,8 @@ class TicketTagRequest extends FormRequest
     public function rules()
     {
         return [
-            "ticket_tag_name" => "required|min:3|max:255|unique:ticket_tags,name," . $this->id,
-            "ticket_tag_color" => "required|min:3|max:255"
+            'ticket_tag_name' => 'required|min:3|max:255|unique:ticket_tags,name,'.$this->id,
+            'ticket_tag_color' => 'required|min:3|max:255',
         ];
     }
 }

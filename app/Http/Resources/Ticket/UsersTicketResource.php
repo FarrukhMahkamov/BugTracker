@@ -17,7 +17,7 @@ class UsersTicketResource extends JsonResource
         return [
             'id' => $this->id,
             'ticket_title' => $this->title,
-            'title_description' => $this->description
+            'title_description' => $this->description,
         ];
     }
 }

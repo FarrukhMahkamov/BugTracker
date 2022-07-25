@@ -24,8 +24,8 @@ class TicketStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'ticket_status_name' => 'required|min:3|max:255|string|unique:ticket_statuses,name,' . $this->id,
-            'ticket_status_color' => 'required|string'
+            'ticket_status_name' => 'required|min:3|max:255|string|unique:ticket_statuses,name,'.$this->id,
+            'ticket_status_color' => 'required|string',
         ];
     }
 }

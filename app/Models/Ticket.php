@@ -13,7 +13,7 @@ class Ticket extends Model
         'title',
         'description',
         'is_compeleted',
-        'project_id'
+        'project_id',
     ];
 
     public function project()

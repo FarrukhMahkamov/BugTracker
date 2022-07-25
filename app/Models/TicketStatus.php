@@ -11,7 +11,7 @@ class TicketStatus extends Model
 
     protected $fillable = [
         'name',
-        'color'
+        'color',
     ];
 
     public function ticket()

@@ -3,29 +3,27 @@
 namespace App\Http\Controllers\Api\Ticket;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Requests\Ticket\TicketStatusRequest;
 use App\Http\Resources\Ticket\TicketStatusResource;
 use App\Models\TicketStatus;
-use Illuminate\Http\Request;
 
 /**
  * @group TICKET STATUSES
- * 
+ *
  * Ticket status ranglari uchun API
  */
 class TicketStatusController extends Controller
-{   
+{
     /**
      * Barhca ticket status ranlagri ro'yhati
      */
     public function index()
     {
         $ticketStatuses = TicketStatus::latest()->get();
-        
+
         return TicketStatusResource::collection($ticketStatuses);
     }
-    
+
     /**
      * Yangi ticket status joylash
      */
@@ -33,22 +31,22 @@ class TicketStatusController extends Controller
     {
         $ticketStatus = TicketStatus::create([
             'name' => $request->input('ticket_status_name'),
-            'color' => $request->input('ticket_status_color')
+            'color' => $request->input('ticket_status_color'),
         ]);
-        
+
         return new TicketStatusResource($ticketStatus);
     }
-    
+
     /**
      * Mavjud ticket statusni o'zgartirish
      */
     public function update(TicketStatusRequest $request, $id)
     {
         $ticketStatus = TicketStatus::findOrFail($id);
-        
+
         $ticketStatus->update([
             'name' => $request->input('ticket_status_name'),
-            'color' => $request->input('ticket_status_color')
+            'color' => $request->input('ticket_status_color'),
         ]);
 
         return new TicketStatusResource($ticketStatus);
@@ -60,11 +58,11 @@ class TicketStatusController extends Controller
     public function destroy($id)
     {
         $ticketStatus = TicketStatus::findOrFail($id);
-        
+
         $ticketStatus->delete();
 
         return response()->json([
-            'data' => 'Deleted Successfully'
+            'data' => 'Deleted Successfully',
         ]);
     }
 }
