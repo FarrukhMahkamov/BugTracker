@@ -9,7 +9,9 @@ use App\Http\Controllers\Api\Ticket\TicketController;
 use App\Http\Controllers\Api\Project\ProjectController;
 use App\Http\Controllers\Api\Auth\GitHubLoginController;
 use App\Http\Controllers\Api\Auth\GoogleLoginController;
+use App\Http\Controllers\Api\Main\UsersTicketController;
 use App\Http\Controllers\Api\Ticket\TicketTagController;
+use App\Http\Controllers\Api\Main\UsersProjectController;
 use App\Http\Controllers\Api\Auth\FacebookLoginController;
 use App\Http\Controllers\Api\Ticket\TicketStatusController;
 
@@ -99,4 +101,7 @@ Route::prefix('v1')->group(function () {
         Route::put('ticket-tags/{id}', 'update');
         Route::delete('ticket-tags/{id}', 'destroy');
     });
+
+    Route::get('my-projects/{id}', [UsersProjectController::class, 'getUsersProject']);
+    Route::get('my-tickets/{user_id}/{project_id}', [UsersTicketController::class, 'getUsersTicket']);
 });

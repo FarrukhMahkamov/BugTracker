@@ -31,6 +31,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'google_id'
     ];
 
     /**
@@ -57,6 +58,6 @@ class User extends Authenticatable
 
     public function ticket()
     {
-        return $this->belongsToMany(Ticket::class);
+        return $this->belongsToMany(Ticket::class)->withTimestamps();
     }
 }

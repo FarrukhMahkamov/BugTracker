@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\TicketRequest;
 use App\Http\Resources\Ticket\MiniTicketResource;
 use App\Http\Resources\Ticket\TicketResource;
+use Illuminate\Support\Facades\Auth;
+
+use function GuzzleHttp\Promise\each;
 
 /**
 * @group TICKETLAR
@@ -204,8 +207,16 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
 
-        $ticket->update([
-            'is_compeleted' => false
-        ]);
+        $ticketUsers = $ticket->ticketUser;
+        return $ticketUsers;
+
+       if (!$ticket->ticketUser->cotntains(Auth::user())) {
+            return response()->json([
+                "You are not owner of the comment"
+            ]);
+       }
+        // $ticket->update([
+        //     'is_compeleted' => false
+        // ]);
     }
 }
