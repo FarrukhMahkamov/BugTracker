@@ -8,7 +8,6 @@ use App\Http\Resources\Ticket\MiniTicketResource;
 use App\Http\Resources\Ticket\TicketResource;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * @group TICKETLAR
@@ -196,7 +195,7 @@ class TicketController extends Controller
 
         if (! $ticket->ticketUser->contains(auth()->id())) {
             return response()->json([
-                "data" => "It is not your ticket bruh. Dont touch it!"
+                'data' => 'It is not your ticket bruh. Dont touch it!',
             ], 401);
         } else {
             $ticket->update([
@@ -204,7 +203,7 @@ class TicketController extends Controller
             ]);
 
             return response()->json([
-                "data" => "Status change successfully"
+                'data' => 'Status change successfully',
             ]);
         }
     }

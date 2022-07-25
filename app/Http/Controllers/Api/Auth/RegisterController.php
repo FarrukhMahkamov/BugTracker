@@ -8,8 +8,16 @@ use App\Http\Resources\Auth\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @group REGISTER USER
+ *
+ * Foydalanuvchi ro'yhatdan o'tishi uchun api
+ */
 class RegisterController extends Controller
 {
+    /**
+     * Ro'yhatdan o'tish
+     */
     public function register(UserRequest $request)
     {
         $user = User::create([
