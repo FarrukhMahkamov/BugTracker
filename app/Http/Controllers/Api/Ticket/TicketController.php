@@ -187,9 +187,10 @@ class TicketController extends Controller
     }
 
     /**
-     * Ticketni bajarliganligini tasdiqlash
+     * Ticketni bajarliganligini tasdiqlash.
+     * Requestdam "status" keyda true yoki false berib yuborish kerak
      */
-    public function completeTask($id)
+    public function changeCompletedStatus(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);
 
@@ -199,29 +200,7 @@ class TicketController extends Controller
             ], 401);
         } else {
             $ticket->update([
-                'is_compeleted' => 1,
-            ]);
-
-            return response()->json([
-                "data" => "Status change successfully"
-            ]);
-        }
-    }
-
-    /**
-     * Ticketni bajarilganligini bekor qilish
-     */
-    public function uncompleteTask($id)
-    {  
-        $ticket = Ticket::findOrFail($id);
-
-        if (! $ticket->ticketUser->contains(auth()->id())) {
-            return response()->json([
-                "data" => "It is not your ticket bruh. Dont touch it!"
-            ]);
-        } else {
-            $ticket->update([
-                'is_compeleted' => 0,
+                'is_compeleted' => $request->status,
             ]);
 
             return response()->json([
